@@ -2,16 +2,23 @@
   description = "Nix configs for Sechmanns nodes";
 
   inputs.nixpkgs.url = "github:nixos/nixpkgs/nixos-25.05";
+
+  inputs.disko.url = "github:nix-community/disko";
+  inputs.disko.inputs.nixpkgs.follows = "nixpkgs";
+
   inputs.treefmt-nix.url = "github:numtide/treefmt-nix";
   inputs.treefmt-nix.inputs.nixpkgs.follows = "nixpkgs";
+
   inputs.hosts.url = "github:StevenBlack/hosts";
 
   outputs = {
     self,
     nixpkgs,
     treefmt-nix,
+    hosts,
+    disko,
     ...
-  } @ inputs: let
+  }: let
     system = "x86_64-linux";
     treeFmtEval = treefmt-nix.lib.evalModule nixpkgs.legacyPackages.${system} ./treefmt.nix;
   in {
@@ -20,7 +27,8 @@
         inherit system;
         modules = [
           ./system/configuration.nix
-          inputs.hosts.nixosModule
+          disko.nixosModule
+          hosts.nixosModule
           {
             networking.stevenBlackHosts.enable = true;
           }

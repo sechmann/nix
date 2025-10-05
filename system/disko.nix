@@ -1,7 +1,7 @@
 {...}: {
   disko.devices = {
     disk = {
-      my-disk = {
+      main = {
         device = "/dev/nvme0n1";
         type = "disk";
         content = {
