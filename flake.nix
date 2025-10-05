@@ -26,7 +26,7 @@
       lenovo-node = nixpkgs.lib.nixosSystem {
         inherit system;
         modules = [
-          disko.nixosModule
+          disko.nixosModules.disko
           ./system/configuration.nix
           hosts.nixosModule
           {
