@@ -26,8 +26,8 @@
       lenovo-node = nixpkgs.lib.nixosSystem {
         inherit system;
         modules = [
-          ./system/configuration.nix
           disko.nixosModule
+          ./system/configuration.nix
           hosts.nixosModule
           {
             networking.stevenBlackHosts.enable = true;
